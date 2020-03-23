@@ -1,99 +1,60 @@
-/* USER CODE BEGIN Header */
-/**
-  ******************************************************************************
-  * @file           : usb_device.c
-  * @version        : v3.0_Cube
-  * @brief          : This file implements the USB Device
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                             www.st.com/SLA0044
-  *
-  ******************************************************************************
-  */
-/* USER CODE END Header */
-
-/* Includes ------------------------------------------------------------------*/
- 
 #include <usbd_midi_if.h>
+#include <usbd_cdc_if.h>
 #include "usb_device.h"
 #include "usbd_core.h"
 #include "usbd_desc.h"
 #include "usbd_midi.h"
 
-/* USER CODE BEGIN Includes */
-
-/* USER CODE END Includes */
-
-/* USER CODE BEGIN PV */
-/* Private variables ---------------------------------------------------------*/
-
-/* USER CODE END PV */
-
-/* USER CODE BEGIN PFP */
-/* Private function prototypes -----------------------------------------------*/
-
-/* USER CODE END PFP */
-
 extern void Error_Handler(void);
-/* USB Device Core handle declaration. */
 USBD_HandleTypeDef hUsbDeviceFS;
+extern USBD_DescriptorsTypeDef MIDI_Desc;
 extern USBD_DescriptorsTypeDef CDC_Desc;
-
-/*
- * -- Insert your variables declaration here --
- */
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
-
-/*
- * -- Insert your external function declaration here --
- */
-/* USER CODE BEGIN 1 */
-
-/* USER CODE END 1 */
 
 /**
   * Init USB device Library, add supported class and start the library
   * @retval None
   */
-void MX_USB_Device_Init(void)
+void MX_USB_Device_Init(uint8_t midi_cdc)
 {
-  /* USER CODE BEGIN USB_Device_Init_PreTreatment */
-  
-  /* USER CODE END USB_Device_Init_PreTreatment */
-  
-  /* Init Device Library, add supported class and start the library. */
-  if (USBD_Init(&hUsbDeviceFS, &MIDI_Desc, DEVICE_FS) != USBD_OK) {
-    Error_Handler();
-  }
-  if (USBD_RegisterClass(&hUsbDeviceFS, &USBD_MIDI) != USBD_OK) {
-    Error_Handler();
-  }
-  if (USBD_MIDI_RegisterInterface(&hUsbDeviceFS, &USBD_Interface_fops_FS) != USBD_OK) {
-    Error_Handler();
-  }
-  if (USBD_Start(&hUsbDeviceFS) != USBD_OK) {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USB_Device_Init_PostTreatment */
-  
-  /* USER CODE END USB_Device_Init_PostTreatment */
+	if ( midi_cdc == 0 )
+	{
+		/* Init Device Library, add supported class and start the library. */
+		if (USBD_Init(&hUsbDeviceFS, &MIDI_Desc, DEVICE_FS) != USBD_OK)
+		{
+			Error_Handler();
+		}
+		if (USBD_RegisterClass(&hUsbDeviceFS, &USBD_MIDI) != USBD_OK)
+		{
+			Error_Handler();
+		}
+		if (USBD_MIDI_RegisterInterface(&hUsbDeviceFS, &USBD_MIDI_Interface_fops_FS) != USBD_OK)
+		{
+			Error_Handler();
+		}
+		if (USBD_Start(&hUsbDeviceFS) != USBD_OK)
+		{
+			Error_Handler();
+		}
+	}
+	else
+	{
+		/* Init Device Library, add supported class and start the library. */
+		if (USBD_Init(&hUsbDeviceFS, &CDC_Desc, DEVICE_FS) != USBD_OK)
+		{
+			Error_Handler();
+		}
+		if (USBD_RegisterClass(&hUsbDeviceFS, &USBD_CDC) != USBD_OK)
+		{
+			Error_Handler();
+		}
+		if (USBD_CDC_RegisterInterface(&hUsbDeviceFS, &USBD_CDC_Interface_fops_FS) != USBD_OK)
+		{
+			Error_Handler();
+		}
+		if (USBD_Start(&hUsbDeviceFS) != USBD_OK)
+		{
+			Error_Handler();
+		}
+	}
 }
 
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

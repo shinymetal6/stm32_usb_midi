@@ -2,7 +2,7 @@
 /**
   ******************************************************************************
   * @file           : usbd_cdc_if.h
-  * @version        : v3.0_Cube
+  * @version        : v1.0_Cube
   * @brief          : Header for usbd_cdc_if.c file.
   ******************************************************************************
   * @attention
@@ -20,15 +20,15 @@
 /* USER CODE END Header */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __USBD_MIDI_IF_H__
-#define __USBD_MIDI_IF_H__
+#ifndef __USBD_CDC_IF_H__
+#define __USBD_CDC_IF_H__
 
 #ifdef __cplusplus
  extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include <usbd_midi.h>
+#include "usbd_cdc.h"
 
 /* USER CODE BEGIN INCLUDE */
 
@@ -39,12 +39,12 @@
   * @{
   */
   
-/** @defgroup USBD_MIDI_IF USBD_MIDI_IF
+/** @defgroup USBD_CDC_IF USBD_CDC_IF
   * @brief Usb VCP device module
   * @{
   */ 
 
-/** @defgroup USBD_MIDI_IF_Exported_Defines USBD_MIDI_IF_Exported_Defines
+/** @defgroup USBD_CDC_IF_Exported_Defines USBD_CDC_IF_Exported_Defines
   * @brief Defines.
   * @{
   */
@@ -56,7 +56,7 @@
   * @}
   */
 
-/** @defgroup USBD_MIDI_IF_Exported_Types USBD_MIDI_IF_Exported_Types
+/** @defgroup USBD_CDC_IF_Exported_Types USBD_CDC_IF_Exported_Types
   * @brief Types.
   * @{
   */
@@ -69,7 +69,7 @@
   * @}
   */
 
-/** @defgroup USBD_MIDI_IF_Exported_Macros USBD_MIDI_IF_Exported_Macros
+/** @defgroup USBD_CDC_IF_Exported_Macros USBD_CDC_IF_Exported_Macros
   * @brief Aliases.
   * @{
   */
@@ -82,13 +82,13 @@
   * @}
   */
 
-/** @defgroup USBD_MIDI_IF_Exported_Variables USBD_MIDI_IF_Exported_Variables
+/** @defgroup USBD_CDC_IF_Exported_Variables USBD_CDC_IF_Exported_Variables
   * @brief Public variables.
   * @{
   */
 
-/** MIDI Interface callback. */
-extern USBD_MIDI_ItfTypeDef USBD_MIDI_Interface_fops_FS;
+/** CDC Interface callback. */
+extern USBD_CDC_ItfTypeDef USBD_CDC_Interface_fops_FS;
 
 /* USER CODE BEGIN EXPORTED_VARIABLES */
 
@@ -98,13 +98,12 @@ extern USBD_MIDI_ItfTypeDef USBD_MIDI_Interface_fops_FS;
   * @}
   */
 
-/** @defgroup USBD_MIDI_IF_Exported_FunctionsPrototype USBD_MIDI_IF_Exported_FunctionsPrototype
+/** @defgroup USBD_CDC_IF_Exported_FunctionsPrototype USBD_CDC_IF_Exported_FunctionsPrototype
   * @brief Public functions declaration.
   * @{
   */
 
-uint8_t MIDI_Transmit_FS(uint8_t* Buf, uint16_t Len);
-uint8_t MIDI_SetRxPointer_FS(uint32_t Buf, uint32_t Len, uint32_t Flag);
+uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len);
 
 /* USER CODE BEGIN EXPORTED_FUNCTIONS */
 
@@ -126,6 +125,6 @@ uint8_t MIDI_SetRxPointer_FS(uint32_t Buf, uint32_t Len, uint32_t Flag);
 }
 #endif
 
-#endif /* __USBD_MIDI_IF_H__ */
+#endif /* __USBD_CDC_IF_H__ */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

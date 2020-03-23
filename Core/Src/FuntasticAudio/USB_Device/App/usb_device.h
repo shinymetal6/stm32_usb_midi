@@ -76,7 +76,7 @@
   */
 
 /** USB Device initialization function. */
-void MX_USB_Device_Init(void);
+void MX_USB_Device_Init(uint8_t midi_cdc);
 
 /*
  * -- Insert functions declaration here --

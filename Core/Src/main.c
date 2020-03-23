@@ -99,7 +99,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART2_UART_Init();
-  MX_USB_Device_Init();
+  MX_USB_Device_Init(0); /* 0 is midi, 1 is CDC */
   /* USER CODE BEGIN 2 */
   MIDI_SetRxPointer_FS((uint32_t )&midi_buffer[0],(uint32_t )&midi_len,(uint32_t )&midi_flag);
   /* USER CODE END 2 */
